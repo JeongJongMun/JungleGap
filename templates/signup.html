@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up</title>
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+        }
+        h2 {
+            color: #fff;
+        }
+    </style>
+    <script>
+        function validatePassword() {
+            var password = document.getElementById("password").value;
+            var repassword = document.getElementById("repassword").value;
+
+            if (password !== repassword) {
+                alert("비밀번호가 일치하지 않습니다.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h2>회원가입</h2>
+    <form method="post" action="/signup" onsubmit="return validatePassword()">
+        <label for="username">ID:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="password">PW:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <label for="password">REPW:</label>
+        <input type="password" id="repassword" name="repassword" required>
+        <br>
+        <input type="submit" value="생성">
+        <br>
+        <a href="/..">이전</a>
+    </form>
+</body>
+</html>
