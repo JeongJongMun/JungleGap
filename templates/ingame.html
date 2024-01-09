@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/output.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <title>정글 차이</title>
     <style>
         .bird {
@@ -13,58 +15,63 @@
             left: 25%;
             width: 200px;
             height: 200px;
-            transition: transform 0.2s; /* 추가: 움직임에 부드러운 효과를 위한 트랜지션 */
-        }
-        .bg-jungle {
-            background-image: url('../static/background.jpg');
-            background-size: cover;
+            transition: transform 0.2s;
         }
 
+        .bg-jungle {
+            background-image: url('../static/background.jpg');
+        }
+
+        body {
+            overflow: hidden;
+            /* Disable scrolling */
+        }
     </style>
 </head>
 
-<body class="bg-jungle bg-center bg-no-repeat relative flex items-center justify-center h-screen">
+<body class="bg-jungle bg-cover bg-no-repeat">
 
     <div class="relative">
         <img id="bird" src="../static/bird3.gif" alt="Bird" class="bird absolute top-1/2 left-1/4">
     </div>
 
     <script>
-        const bird = document.getElementById("bird");
         let jump = false;
 
-        // Function to handle bird's jump
         function handleJump() {
             if (!jump) {
                 jump = true;
-                bird.style.transform = "translateY(-50px)";
+                let pos = parseInt($("#bird").css("top"));
+                $("#bird").css("top", pos - 50 + "px");
+
                 setTimeout(() => {
-                    bird.style.transform = "translateY(0)";
                     jump = false;
                 }, 200);
             }
         }
 
-        // Event listener for space key press
-        window.addEventListener("keydown", (event) => {
+        $(window).keydown(function (event) {
             if (event.code === "Space") {
                 handleJump();
+                event.preventDefault();
             }
         });
 
-        // Function to move bird down gradually
         function moveDown() {
-            const currentPosition = parseInt(getComputedStyle(bird).top);
-            bird.style.top = currentPosition + 2 + "px";
+            const currentPosition = parseInt($("#bird").css("top"));
+            const windowHeight = $(window).height();
+            const birdHeight = $("#bird").height();
+
+            if (currentPosition + birdHeight < windowHeight) {
+                $("#bird").css("top", currentPosition + 3 + "px");
+            }
         }
 
-        // Function to continuously move bird down
         function startMovingDown() {
             setInterval(moveDown, 50);
         }
 
-        // Start moving bird down
-        startMovingDown();
+        $(document).ready(startMovingDown);
     </script>
 
 </body>
