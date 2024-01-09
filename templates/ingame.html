@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/output.css" rel="stylesheet">
+    <title>정글 차이</title>
+    <style>
+        .bird {
+            position: absolute;
+            top: 50%;
+            left: 25%;
+            width: 200px;
+            height: 200px;
+            transition: transform 0.2s; /* 추가: 움직임에 부드러운 효과를 위한 트랜지션 */
+        }
+        .bg-jungle {
+            background-image: url('../static/background.jpg');
+            background-size: cover;
+        }
+
+    </style>
+</head>
+
+<body class="bg-jungle bg-center bg-no-repeat relative flex items-center justify-center h-screen">
+
+    <div class="relative">
+        <img id="bird" src="../static/bird3.gif" alt="Bird" class="bird absolute top-1/2 left-1/4">
+    </div>
+
+    <script>
+        const bird = document.getElementById("bird");
+        let jump = false;
+
+        // Function to handle bird's jump
+        function handleJump() {
+            if (!jump) {
+                jump = true;
+                bird.style.transform = "translateY(-50px)";
+                setTimeout(() => {
+                    bird.style.transform = "translateY(0)";
+                    jump = false;
+                }, 200);
+            }
+        }
+
+        // Event listener for space key press
+        window.addEventListener("keydown", (event) => {
+            if (event.code === "Space") {
+                handleJump();
+            }
+        });
+
+        // Function to move bird down gradually
+        function moveDown() {
+            const currentPosition = parseInt(getComputedStyle(bird).top);
+            bird.style.top = currentPosition + 2 + "px";
+        }
+
+        // Function to continuously move bird down
+        function startMovingDown() {
+            setInterval(moveDown, 50);
+        }
+
+        // Start moving bird down
+        startMovingDown();
+    </script>
+
+</body>
+
+</html>
