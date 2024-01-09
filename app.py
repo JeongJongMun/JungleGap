@@ -1,15 +1,18 @@
-from flask import Flask, render_template, request, jsonify, make_response
+from flask import Flask, render_template, request, jsonify
 import jwt
 import datetime
 from functools import wraps
+from pymongo import MongoClient
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['MONGO_URI'] = 'mongodb://localhost:27017/mydatabase'  # MongoDB 연결 URI
 
-# 사용자 데이터베이스
-users = {
-    'username': 'password'
-}
+mongo = MongoClient(app.config['MONGO_URI'])
+db = mongo.mydatabase  # 데이터베이스 선택
+
+# 사용자 데이터베이스 컬렉션
+users_collection = db.users
 
 # 토큰 생성 함수
 def generate_token(username):
@@ -20,8 +23,19 @@ def generate_token(username):
 
 # 사용자 인증 함수
 def authenticate(username, password):
-    # 실제 시스템에서는 안전한 방식으로 비밀번호를 저장하고 확인해야 함
-    return users.get(username) == password
+    user = users_collection.find_one({'username': username, 'password': password})
+    return user is not None
+
+# 회원가입 함수
+def signup(username, password):
+    # 이미 등록된 사용자인지 확인
+    existing_user = users_collection.find_one({'username': username})
+    if existing_user:
+        return False, '이미 등록된 사용자입니다.'
+
+    # 새로운 사용자 추가
+    users_collection.insert_one({'username': username, 'password': password, 'score': 0})
+    return True, '회원가입 성공'
 
 # 토큰 확인 데코레이터
 def token_required(f):
@@ -42,6 +56,11 @@ def token_required(f):
 
     return decorated
 
+# 루트 URL에 대한 핸들러 추가
+@app.route('/')
+def home():
+    return render_template('login.html')
+
 # 로그인 페이지 렌더링
 @app.route('/login', methods=['GET'])
 def login_page():
@@ -60,6 +79,31 @@ def login():
         return render_template('token.html', token=token)
 
     return render_template('error.html', message='인증 실패'), 401
+
+# 회원가입 페이지 렌더링
+@app.route('/signup', methods=['GET'])
+def signup_page():
+    return render_template('signup.html')
+
+# 회원가입 엔드포인트
+@app.route('/signup', methods=['POST'])
+def signup():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    repassword = request.form.get('repassword')
+
+    if not username or not password or not repassword:
+        return render_template('error.html', message='회원가입 정보가 부족합니다.'), 400
+
+    if password != repassword:
+        return render_template('error.html', message='비밀번호가 일치하지 않습니다.'), 400
+
+    success, message = signup(username, password)
+
+    if success:
+        return render_template('success.html', message=message)
+    else:
+        return render_template('error.html', message=message), 400
 
 # 보호된 엔드포인트
 @app.route('/protected', methods=['GET'])
