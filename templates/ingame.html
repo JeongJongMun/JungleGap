@@ -4,75 +4,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- JavaScript -->
+    <script src="../static/ingame.js"></script>
+
 
     <title>정글 차이</title>
-    <style>
-        .bird {
-            position: absolute;
-            top: 50%;
-            left: 25%;
-            width: 200px;
-            height: 200px;
-            transition: transform 0.2s;
-        }
 
-        .bg-jungle {
-            background-image: url('../static/background.jpg');
-        }
-
-        body {
-            overflow: hidden;
-            /* Disable scrolling */
-        }
-    </style>
 </head>
 
-<body class="bg-jungle bg-cover bg-no-repeat">
+<body class="bg-[url('../static/background.jpg')] bg-fixed bg-cover bg-no-repeat">
 
-    <div class="relative">
-        <img id="bird" src="../static/bird3.gif" alt="Bird" class="bird absolute top-1/2 left-1/4">
+    <!-- 상단바 -->
+    <div class="flex">
+        <!-- 체력 -->
+        <div id="hp-box" class="flex">
+            <img id="hp" src="../static/heart.png" alt="HP" class="size-20">
+            <img id="hp" src="../static/heart.png" alt="HP" class="size-20">
+            <img id="hp" src="../static/heart.png" alt="HP" class="size-20">
+        </div>
+        <!-- 스코어 -->
+        <div id="score" class="flex left-1/2 absolute text-6xl text-center size-20">0</div>
     </div>
 
-    <script>
-        let jump = false;
+    <!-- 퀴즈 -->
+    <div id="question-box"
+        class="absolute top-24 flex items-center p-4 mb-4 text-4xl text-blue-800 border border-blue-300 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800"
+        role="alert">
+        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor" viewBox="0 0 20 20">
+            <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+            <span id="question" class="font-medium">퀴즈! 1+1?</span>
+        </div>
+    </div>
 
-        function handleJump() {
-            if (!jump) {
-                jump = true;
-                let pos = parseInt($("#bird").css("top"));
-                $("#bird").css("top", pos - 50 + "px");
+    <!-- 새 -->
+    <div>
+        <img id="bird" src="../static/bird3.gif" alt="Bird" class="absolute top-1/2 left-10 size-32">
+    </div>
 
-                setTimeout(() => {
-                    jump = false;
-                }, 200);
-            }
-        }
 
-        $(window).keydown(function (event) {
-            if (event.code === "Space") {
-                handleJump();
-                event.preventDefault();
-            }
-        });
+    <!-- 퀴즈 정답 알림 -->
+    <div style="visibility:hidden" id="correct"
+        class="absolute bottom-0 flex items-center p-4 mb-4 text-2xl text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800"
+        role="alert">
+        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor" viewBox="0 0 20 20">
+            <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+            <span id="answer-show-correct" class="font-medium">정답! 축하!</span>
+        </div>
+    </div>
+    <!-- 퀴즈 오답 알림 -->
+    <div style="visibility:hidden" id="wrong"
+        class="absolute bottom-0 flex items-center p-4 mb-4 text-red-800 text-2xl border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+        role="alert">
+        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor" viewBox="0 0 20 20">
+            <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+            <span id="answer-show-wrong" class="font-medium">오답! 안타깝!</span>
+        </div>
+    </div>
 
-        function moveDown() {
-            const currentPosition = parseInt($("#bird").css("top"));
-            const windowHeight = $(window).height();
-            const birdHeight = $("#bird").height();
-
-            if (currentPosition + birdHeight < windowHeight) {
-                $("#bird").css("top", currentPosition + 3 + "px");
-            }
-        }
-
-        function startMovingDown() {
-            setInterval(moveDown, 50);
-        }
-
-        $(document).ready(startMovingDown);
-    </script>
 
 </body>
 
