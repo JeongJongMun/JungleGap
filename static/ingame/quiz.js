@@ -80,6 +80,23 @@ export function quizGenerate() {
 
 }
 
+// DB에 스코어 저장 함수
+function scoreSave() {
+    let data = {
+        score: score,
+    }
+    $.ajax({
+        type: "POST",
+        url: "/api/score",
+        data: data,
+        success: function (response) {
+            console.log(response);
+        }
+    });
+
+
+}
+
 // 체력 감소 함수
 function hpDown() {
     health--;

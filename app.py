@@ -68,6 +68,16 @@ def api_login():
     else:
         return jsonify({'result': 'fail'})
     
+@app.route('/api/score', methods=['POST'])
+def api_score():
+    score_receive = request.form['score_give']
+    token_receive = request.cookies.get('mytoken')
+    
+    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+    db.user.update_one({'id': payload['id']}, {'$set': {'score': score_receive}})
+        
+    return jsonify({'result': 'success'})
+    
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
