@@ -75,6 +75,7 @@ def api_score():
     
     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
     db.user.update_one({'id': payload['id']}, {'$set': {'score': score_receive}})
+    print(payload['id'], score_receive)
         
     return jsonify({'result': 'success'})
     

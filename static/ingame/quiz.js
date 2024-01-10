@@ -83,7 +83,7 @@ export function quizGenerate() {
 // DB에 스코어 저장 함수
 function scoreSave() {
     let data = {
-        score: score,
+        score_give: score,
     }
     $.ajax({
         type: "POST",
@@ -93,8 +93,6 @@ function scoreSave() {
             console.log(response);
         }
     });
-
-
 }
 
 // 체력 감소 함수
@@ -134,6 +132,7 @@ function hpDown() {
 function scoreUp() {
     score++;
     $("#score").text(score);
+    scoreSave();
 }
 
 // 정답 알람창 팝업 함수
