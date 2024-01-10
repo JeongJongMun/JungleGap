@@ -1,5 +1,6 @@
 function showRanking(ranking_list) {
-    $(".modalBackground").addClass("show");
+    $("#modalBackground").addClass("opacity-100", "z-1000", "transition-all", "duration-500");
+    $("#modalBackground").removeClass("-z-10");
     $("#ranking-list").empty();
 
     for (var i = 0; i < ranking_list.length; i++) {
@@ -10,9 +11,9 @@ function showRanking(ranking_list) {
     }
 }
 
-
 function closeRanking() {
-    $(".modalBackground").removeClass("show");
+    $("#modalBackground").removeClass("opacity-100", "z-1000", "transition-all", "duration-500");
+    $("#modalBackground").addClass("-z-10");
 }
 
 window.onload = function () {

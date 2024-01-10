@@ -2,97 +2,14 @@
 <html lang="en">
 
 <head>
-  <title>index</title>
+  <title>정글 차이</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @font-face {
-      font-family: 'WarhavenB';
-      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/WarhavenB.woff2') format('woff2');
-      font-weight: 700;
-      font-style: normal;
-    }
-
-    @font-face {
-      font-family: 'Pretendard-Regular';
-      src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-      font-weight: 400;
-      font-style: normal;
-    }
-
-    .modalBackground {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.7);
-      z-index: 1000;
-
-      /* 숨기기 */
-      z-index: -1;
-      opacity: 0;
-    }
-
-    .modalWindow {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-
-    .popup {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #ffffff;
-      box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
-
-      /* 임시 지정 */
-      width: 500px;
-      height: 500px;
-
-      /* 초기에 약간 아래에 배치 */
-      transform: translate(-50%, -40%);
-    }
-
-    .show {
-      opacity: 1;
-      z-index: 1000;
-      transition: all .5s;
-    }
-
-    .show .popup {
-      transform: translate(-50%, -50%);
-      transition: all .5s;
-    }
-  </style>
-
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            jgF1: ['Pretendard-Regular, WarhavenB']
-          },
-          colors: {
-            customJgColor1: "#254E3CFF",
-            customJgColor2: "#FF9800FF",
-            customJgColor3: "#5F8670CC"
-          },
-
-          fontSize: {
-            customFontSize1: '100px',
-          },
-        },
-      },
-    };
-  </script>
-
+  <script src="../static/main/tailwind_config.js"></script>
+  <link rel="stylesheet" href="../static/main/tailwind_config.css">
   <script src="../static/main/main.js"></script>
   <script type=text/javascript>
     var ranking_list = JSON.parse({{ ranker | tojson | safe}});
@@ -100,14 +17,12 @@
 </head>
 
 <body class="bg-[url('/static/background.jpg')] bg-cover">
-
   <div class="mb-20">
   </div>
   <div>
     <img id="title" src="../static/title.png" alt="Title" class="absolute left-96">
   </div>
   <div class="h-60"></div>
-
   <div
     class="min-w-screen flex-col max-w-md min-h-200 mx-auto bg-customJgColor3 opacity-100 px-4 bg-no-repeat bg-cover bg-center rounded-3xl">
     <div class="p-6 pt-10 flex flex-col w-full space-y-4">
@@ -116,7 +31,6 @@
       </div>
       <div class="flex flex-col w-full space-y-1">
         <label class="font-jgF1 text-md text-white"> 점수: {{score}}</label>
-
       </div>
     </div>
     <div class="pt-6 flex-col space-x-2 align-items">
@@ -125,14 +39,18 @@
           class="hover:bg-sky-700 font-jgF1 cursor-pointer h-10 w-5/12 border-2 bg-customJgColor2 rounded-lg text-white text-center items-center py-2">
           게임시작</a>
       </div>
+
       <div class="flex justify-items-center  space-y-4">
-        <!-- document.queerySelector의 addEventListener(click)으로 연결해서 onclick이 없음 -->
+
         <a id="ranking"
           class="hover:bg-sky-700 font-jgF1 cursor-pointer h-10 w-5/12 border-2 bg-customJgColor2 rounded-lg text-white text-center items-center py-2">
           랭킹보기</a>
-        <div class="modalBackground">
-          <div class="modalWindow">
-            <div class="popup flex flex-col justify-center">
+
+        <!-- 형이 작업 -->
+        <div id="modalBackground" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 opacity-0 -z-10">
+          <div id="modalWindow" class="relative w-full h-full">
+            <div
+              class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-40 transition-transform duration-500 transform translate-x-(-50%) translate-y-(-50%) bg-white shadow-md w-500 h-500 flex flex-col justify-center">
               <h1 class="font-jgF1 text-center text-customJgColor2 text-customFontSize1 ">랭 킹</h1>
               <div id="rankBoard" class="mx-10 h-min-20">
                 <ol id="ranking-list" type="1">
@@ -145,6 +63,8 @@
             </div>
           </div>
         </div>
+        <!-- 형이 작업 -->
+
       </div>
       <div class="flex justify-items-center space-y-4">
         <button onclick="logout()"
@@ -156,17 +76,6 @@
     </div>
   </div>
   </div>
-
-  <!-- <button id="show">랭킹열기</button>
-  <div class="modalBackground">
-    <div class="modalWindow">
-      <div class="popup">
-        <button id="close">랭킹닫기</button>
-      </div>
-    </div>
-  </div> -->
-
-
 </body>
 
 

@@ -20,7 +20,7 @@ def start():
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"id": payload['id']})
         ranker_list = list(db.user.find({}, {'_id': 0 ,'pw':0}).sort('score', -1).limit(10))
-        return render_template('index.html', userid=user_info['id'], score=user_info['score'], ranker=json.dumps(ranker_list))
+        return render_template('main.html', userid=user_info['id'], score=user_info['score'], ranker=json.dumps(ranker_list))
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login"))
     except jwt.exceptions.DecodeError:
