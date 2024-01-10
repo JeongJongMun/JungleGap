@@ -111,18 +111,19 @@ function hpDown() {
         Swal.fire({
             title: "Game Over..",
             text: "다시 도전해보세요!",
-            icon: "question", 
+            icon: "question",
             confirmButtonText: "재시작",
             showDenyButton: true,
             denyButtonText: "메인으로"
         }).then((result) => {
             if (result.isConfirmed) {
                 resumeGame();
-                // 재시작
+                location.reload();
             }
             else if (result.isDenied) {
                 resumeGame();
                 // 메인으로
+                window.location.href = '/';
             }
         });
     }
