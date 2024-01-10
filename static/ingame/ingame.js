@@ -2,8 +2,14 @@ import { birdFalling, detectCollision } from "./bird.js";
 import { quizGenerate } from "./quiz.js";
 
 let delta = 50;
-
 let isPlaying = true;
+
+function exit() {
+    window.location.href = "/";
+}
+
+const exit_btn = $("#exit-btn");
+exit_btn[0].addEventListener("click", exit);
 
 export function pauseGame() {
     isPlaying = false;

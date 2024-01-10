@@ -29,16 +29,16 @@ let questionType = ["number", "OX", "OX", "OX", "number"]
 let monkeys_number = `
 <div class="absolute grid grid-cols-1 gap-4 right-0 top-1/3 content-start" style="left: 80%">
     <div>
-        <img id="monkey1" src="../static/monkey.png" alt="Monkey" class="size-24">
+        <img id="monkey1" src="../static/monkey1.png" alt="Monkey" class="size-24">
     </div>
     <div>
-        <img id="monkey2" src="../static/monkey.png" alt="Monkey" class="size-24">
+        <img id="monkey2" src="../static/monkey2.png" alt="Monkey" class="size-24">
     </div>
     <div>
-        <img id="monkey3" src="../static/monkey.png" alt="Monkey" class="size-24">
+        <img id="monkey3" src="../static/monkey3.png" alt="Monkey" class="size-24">
     </div>
     <div>
-        <img id="monkey4" src="../static/monkey.png" alt="Monkey" class="size-24">
+        <img id="monkey4" src="../static/monkey4.png" alt="Monkey" class="size-24">
     </div>
 </div>
 `;
@@ -46,18 +46,41 @@ let monkeys_number = `
 let monkeys_ox = `
 <div class="absolute flex flex-col gap-20 top-1/4" style="left: 80%">
     <div>
-        <img id="monkeyO" src="../static/monkey.png" alt="Monkey" class="size-48">
+        <img id="monkeyO" src="../static/monkeyO.png" alt="Monkey" class="size-48">
     </div>
     <div>
-        <img id="monkeyX" src="../static/monkey.png" alt="Monkey" class="size-48">
+        <img id="monkeyX" src="../static/monkeyX.png" alt="Monkey" class="size-48">
     </div>
 </div>
 `;
 
+// 게임 종료 알림 함수
+function GameOverAlert() {
+    Swal.fire({
+        title: "게임 종료!",
+        text: "다시 도전해보세요!",
+        icon: "question",
+        confirmButtonText: "재시작",
+        showDenyButton: true,
+        denyButtonText: "메인으로"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            location.reload();
+        }
+        else if (result.isDenied) {
+            window.location.href = '/';
+        }
+    });
+}
 
 // 문제 생성 및 원숭이 생성
 export function quizGenerate() {
     if (!canQuiz) {
+        return;
+    }
+    if (currentQuizIdx > questionList.length - 1) {
+        GameOverAlert();
+        canQuiz = false;
         return;
     }
     canQuiz = false;
@@ -95,6 +118,8 @@ function scoreSave() {
     });
 }
 
+
+
 // 체력 감소 함수
 function hpDown() {
     health--;
@@ -108,24 +133,8 @@ function hpDown() {
     }
     if (health <= 0) {
         pauseGame();
-        Swal.fire({
-            title: "Game Over..",
-            text: "다시 도전해보세요!",
-            icon: "question",
-            confirmButtonText: "재시작",
-            showDenyButton: true,
-            denyButtonText: "메인으로"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                resumeGame();
-                location.reload();
-            }
-            else if (result.isDenied) {
-                resumeGame();
-                // 메인으로
-                window.location.href = '/';
-            }
-        });
+        GameOverAlert();
+        resumeGame();
     }
 }
 
@@ -161,7 +170,7 @@ function alert_answer(isCorrect) {
             resumeGame();
             setTimeout(() => {
                 canQuiz = true;
-                currentQuizIdx = (currentQuizIdx + 1) % questionList.length;
+                currentQuizIdx++;
             }, quizInterval);
         }
     });
