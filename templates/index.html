@@ -86,8 +86,7 @@
           fontSize: {
             customFontSize1: '100px',
           },
-
-        },
+       },
       },
     };
   </script>
@@ -97,10 +96,19 @@
       alert('로그아웃 성공')
       window.location.href = '/login'
     }
+  </script>
+  <script>
     function redirectToIngame() {
-      window.location.href = '/ingame';
+      var token = $.cookie('mytoken');
+          if (token) {
+              window.location.href = '/ingame?token=' + token;
+          } else {
+              alert('로그인이 필요합니다.');
+          }
+      
     }
-
+  </script>
+  <script>
     function showRanking() {
       document.querySelector(".background").className = "background show";
     }
@@ -133,9 +141,8 @@
 
       </div>
     </div>
-
     <div class="pt-6 w-full flex space-x-2 justify-between">
-      <a onclick="redirectToLogin()"
+      <a onclick="redirectToIngame()"
         class="hover:bg-sky-700 font-jgF1 cursor-pointer h-10 w-5/12 border-2 border-orange-700 rounded-lg text-white text-center items-center py-2">
         게임시작</a>
       <a onclick="signup()"
@@ -162,5 +169,6 @@
 
 
 </body>
+
 
 </html>
