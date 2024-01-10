@@ -1,72 +1,47 @@
-<!DOCTYPE html>
-<html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>index</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/output.css" rel="stylesheet">
-    <title>정글 차이</title>
-    <style>
-        .bird {
-            position: absolute;
-            top: 50%;
-            left: 25%;
-            width: 200px;
-            height: 200px;
-            transition: transform 0.2s; /* 추가: 움직임에 부드러운 효과를 위한 트랜지션 */
-        }
-        .bg-jungle {
-            background-image: url('../static/background.jpg');
-            background-size: cover;
-        }
-
-    </style>
-</head>
-
-<body class="bg-jungle bg-center bg-no-repeat relative flex items-center justify-center h-screen">
-
-    <div class="relative">
-        <img id="bird" src="../static/bird3.gif" alt="Bird" class="bird absolute top-1/2 left-1/4">
-    </div>
-
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script id="targetScript" src="https://cdn.tailwindcss.com"></script>
     <script>
-        const bird = document.getElementById("bird");
-        let jump = false;
-
-        // Function to handle bird's jump
-        function handleJump() {
-            if (!jump) {
-                jump = true;
-                bird.style.transform = "translateY(-50px)";
-                setTimeout(() => {
-                    bird.style.transform = "translateY(0)";
-                    jump = false;
-                }, 200);
-            }
-        }
-
-        // Event listener for space key press
-        window.addEventListener("keydown", (event) => {
-            if (event.code === "Space") {
-                handleJump();
-            }
-        });
-
-        // Function to move bird down gradually
-        function moveDown() {
-            const currentPosition = parseInt(getComputedStyle(bird).top);
-            bird.style.top = currentPosition + 2 + "px";
-        }
-
-        // Function to continuously move bird down
-        function startMovingDown() {
-            setInterval(moveDown, 50);
-        }
-
-        // Start moving bird down
-        startMovingDown();
+      tailwind.config = {
+      theme: {
+          fontFamily: {
+              jgF1: ['./fonts/Pretendard']
+          },
+          extend: {
+              colors: {
+                  customJgColor1: "#254E3CFF",
+                  customJgColor2: "#FF9800FF",
+                  customJgColor3: "#5F8670CC"
+              },
+              fontSize: {
+                  customFontSize1: '88px',
+              },
+          },
+          },
+      };
     </script>
-
-</body>
-
+    <script>
+      function logout(){
+        $.removeCookie();
+        alert('로그아웃 성공')
+        window.location.href='/login'
+      }
+      function redirectToIngame() {
+        window.location.href = '/ingame';
+      }
+    </script>
+  </head>
+  <body>
+    <h1>정글차이</h1>
+    아이디: {{userid}}
+    점수: {{score}}
+    <button onclick="logout()">로그아웃</button>
+    <button onclick="redirectToIngame()">게임시작</button>
+  </body>
 </html>
