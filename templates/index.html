@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>index</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script id="targetScript" src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+      theme: {
+          fontFamily: {
+              jgF1: ['./fonts/Pretendard']
+          },
+          extend: {
+              colors: {
+                  customJgColor1: "#254E3CFF",
+                  customJgColor2: "#FF9800FF",
+                  customJgColor3: "#5F8670CC"
+              },
+              fontSize: {
+                  customFontSize1: '88px',
+              },
+          },
+          },
+      };
+    </script>
+    <script>
+      function logout(){
+        $.removeCookie();
+        alert('로그아웃 성공')
+        window.location.href='/login'
+      }
+      function redirectToIngame() {
+        window.location.href = '/ingame';
+      }
+    </script>
+  </head>
+  <body>
+    <h1>정글차이</h1>
+    아이디: {{userid}}
+    점수: {{score}}
+    <button onclick="logout()">로그아웃</button>
+    <button onclick="redirectToIngame()">게임시작</button>
+  </body>
+</html>

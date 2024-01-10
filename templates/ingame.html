@@ -1,8 +1,8 @@
-<!DOCTYPE html>
-<html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>index</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -73,7 +73,22 @@
 
         $(document).ready(startMovingDown);
     </script>
-
-</body>
-
+    <script>
+      function logout(){
+        $.removeCookie();
+        alert('로그아웃 성공')
+        window.location.href='/login'
+      }
+      function redirectToIngame() {
+        window.location.href = '/ingame';
+      }
+    </script>
+  </head>
+  <body>
+    <h1>정글차이</h1>
+    아이디: {{userid}}
+    점수: {{score}}
+    <button onclick="logout()">로그아웃</button>
+    <button onclick="redirectToIngame()">게임시작</button>
+  </body>
 </html>
