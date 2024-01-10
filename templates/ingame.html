@@ -8,9 +8,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- JavaScript -->
-    <script src="../static/ingame.js"></script>
-
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- import 모듈 사용할 파일 지정 -->
+    <script type="module" src="../static/ingame.js"></script>
 
     <title>정글 차이</title>
 
@@ -31,8 +32,9 @@
     </div>
 
     <!-- 퀴즈 -->
+
     <div id="question-box"
-        class="absolute top-24 flex items-center p-4 mb-4 text-4xl text-blue-800 border border-blue-300 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800"
+        class="absolute top-24 flex items-center p-4 mb-4 text-3xl text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800"
         role="alert">
         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
             fill="currentColor" viewBox="0 0 20 20">
@@ -49,37 +51,6 @@
     <div>
         <img id="bird" src="../static/bird3.gif" alt="Bird" class="absolute top-1/2 left-10 size-32">
     </div>
-
-
-    <!-- 퀴즈 정답 알림 -->
-    <div style="visibility:hidden" id="correct"
-        class="absolute bottom-0 flex items-center p-4 mb-4 text-2xl text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800"
-        role="alert">
-        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor" viewBox="0 0 20 20">
-            <path
-                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-        </svg>
-        <span class="sr-only">Info</span>
-        <div>
-            <span id="answer-show-correct" class="font-medium">정답! 축하!</span>
-        </div>
-    </div>
-    <!-- 퀴즈 오답 알림 -->
-    <div style="visibility:hidden" id="wrong"
-        class="absolute bottom-0 flex items-center p-4 mb-4 text-red-800 text-2xl border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
-        role="alert">
-        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor" viewBox="0 0 20 20">
-            <path
-                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-        </svg>
-        <span class="sr-only">Info</span>
-        <div>
-            <span id="answer-show-wrong" class="font-medium">오답! 안타깝!</span>
-        </div>
-    </div>
-
 
 </body>
 
