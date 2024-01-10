@@ -2,7 +2,7 @@ tailwind.config = {
     theme: {
         extend: {
             fontFamily: {
-                jgF1: ['Pretendard-Regular, WarhavenB']
+                jgF1: ['Pretendard-Regular', 'WarhavenB']
             },
             colors: {
                 customJgColor1: "#254E3CFF",
@@ -16,26 +16,41 @@ tailwind.config = {
     },
 };
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     function login() {
         $.ajax({
             type: "POST",
             url: "/api/login",
             data: { id_give: $('#userid').val(), pw_give: $('#userpw').val() },
-            success: function(response) {
-                if (response['result'] == 'success') {
+            success: function (response) {
+                if (response['result'] === 'success') {
                     $.cookie('mytoken', response['token']);
-                    alert('로그인 완료')
-                    window.location.href = '/'
+                    Swal.fire({
+                        title: "로그인 성공",
+                        icon: "success",
+                        confirmButtonText: "확인",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = '/';
+                        }
+                    });
                 } else {
-                    alert('로그인 실패')
+                    Swal.fire({
+                        title: "로그인 실패",
+                        icon: "error",
+                        confirmButtonText: "확인",
+                    });
                 }
             }
         });
     }
+    
     document.querySelector('.login').addEventListener('click', login);
+    
     function redirectToSignup() {
         window.location.href = '/signup';
     }
+    
     document.querySelector('.signup').addEventListener('click', redirectToSignup);
+    
 });
