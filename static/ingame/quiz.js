@@ -54,7 +54,8 @@ let monkeys_ox = `
 </div>
 `;
 
-function GameOverPanel() {
+// 게임 종료 알림 함수
+function GameOverAlert() {
     Swal.fire({
         title: "게임 종료!",
         text: "다시 도전해보세요!",
@@ -78,7 +79,7 @@ export function quizGenerate() {
         return;
     }
     if (currentQuizIdx > questionList.length - 1) {
-        GameOverPanel();
+        GameOverAlert();
         canQuiz = false;
         return;
     }
@@ -132,7 +133,7 @@ function hpDown() {
     }
     if (health <= 0) {
         pauseGame();
-        GameOverPanel();
+        GameOverAlert();
         resumeGame();
     }
 }
