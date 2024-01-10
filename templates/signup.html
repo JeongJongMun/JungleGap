@@ -8,51 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        jgF1: ['Pretendard-Regular, WarhavenB']
-                    },
-                    colors: {
-                        customJgColor1: "#254E3CFF",
-                        customJgColor2: "#FF9800FF",
-                        customJgColor3: "#5F8670CC"
-                    },
-                    fontSize: {
-                        customFontSize1: '100px',
-                    },
-                },
-            },
-        };
-
-        function signup() {
-            $.ajax({
-                type: "POST",
-                url: "/api/signup",
-                data: {
-                    id_give: $('#userid').val(),
-                    pw_give: $('#userpw').val()
-                },
-                success: function (response) {
-                    if (response['result'] == 'success') {
-                        alert('회원가입 완료')
-                        window.location.href = '/login'
-                    } else if (response['result'] == 'notid') {
-                        alert('아이디를 입력하세요.')
-                    } else if (response['result'] == 'notpw') {
-                        alert('비밀번호를 입력하세요.')
-                    } else {
-                        alert('이미 있는 아이디입니다.')
-                    }
-                }
-            })
-        }
-        function redirectToLogin() {
-            window.location.href = '/login';
-        }
-    </script>
+    <script type="text/javascript" src="../static/login/signup.js"></script>
 </head>
 
 <body class="bg-[url('/static/background.jpg')] bg-cover">
@@ -104,9 +60,9 @@
                 </div>
                 <div class="pt-6 w-full flex space-x-2 justify-between">
                     <a onclick="redirectToLogin()"
-                        class="hover:bg-sky-700 font-jgF1 cursor-pointer h-10 w-5/12 border-2 border-orange-700 rounded-lg text-white text-center items-center py-2">뒤로가기</a>
+                        class="back_jg hover:bg-sky-700 font-jgF1 cursor-pointer h-10 w-5/12 border-2 border-orange-700 rounded-lg text-white text-center items-center py-2">뒤로가기</a>
                     <a onclick="signup()"
-                        class="hover:bg-sky-700 font-jgF1 cursor-pointer h-10 w-5/12 bg-customJgColor2 rounded-lg text-white text-center items-center py-2">회원가입</a>
+                        class="signup_jg hover:bg-sky-700 font-jgF1 cursor-pointer h-10 w-5/12 bg-customJgColor2 rounded-lg text-white text-center items-center py-2">회원가입</a>
                 </div>
                 <div class="mb-1000">
                 </div>
