@@ -5,19 +5,36 @@
     <title>signup</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="../static/login/signup.js"></script>
+    <style>
+        @font-face {
+            font-family: 'WarhavenB';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/WarhavenB.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Pretendard-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
 </head>
 
 <body class="bg-[url('/static/background.jpg')] bg-cover">
     <div class="mb-20">
     </div>
     <div>
-        <h1 class="font-jgF1 text-center text-customJgColor1 text-customFontSize1 ">정글차이</h1>
+        <img id="bird" src="../static/title.png" alt="Bird" class="absolute left-96">
     </div>
-    <div class="h-20"></div>
+
+    <div class="h-60"></div>
     <form method=" post" action="/signup" onsubmit="return validatePassword()">
         <div
             class="min-w-screen flex flex-col max-w-md min-h-200 mx-auto bg-customJgColor3 opacity-100 px-4 bg-no-repeat bg-cover bg-center rounded-3xl">

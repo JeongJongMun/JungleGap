@@ -2,7 +2,7 @@ tailwind.config = {
     theme: {
         extend: {
             fontFamily: {
-                jgF1: ['Pretendard-Regular, WarhavenB']
+                jgF1: ['Pretendard-Regular', 'WarhavenB']
             },
             colors: {
                 customJgColor1: "#254E3CFF",
@@ -16,11 +16,6 @@ tailwind.config = {
     },
 };
 
-
-
-
-
-
 document.addEventListener("DOMContentLoaded", function() {
     function signup() {
         $.ajax({
@@ -31,21 +26,39 @@ document.addEventListener("DOMContentLoaded", function() {
                 pw_give: $('#userpw').val()
             },
             success: function (response) {
-                if (response['result'] == 'success') {
-                    alert('회원가입 완료')
-                    window.location.href = '/login'
-                } else if (response['result'] == 'notid') {
-                    alert('아이디를 입력하세요.')
-                } else if (response['result'] == 'notpw') {
-                    alert('비밀번호를 입력하세요.')
+                if (response['result'] === 'success') {
+                    Swal.fire({
+                        title: "로그인 성공",
+                        icon: "success",
+                        confirmButtonText: "확인",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = '/login';
+                        }
+                    });
+                } else if (response['result'] === 'notid') {
+                    Swal.fire({
+                        title: "아이디를 입력해주세요.",
+                        icon: "error",
+                        confirmButtonText: "확인",
+                    });
+                } else if (response['result'] === 'notpw') {
+                    Swal.fire({
+                        title: "비밀번호를 입력해주세요.",
+                        icon: "error",
+                        confirmButtonText: "확인",
+                    });
                 } else {
-                    alert('이미 있는 아이디입니다.')
+                    Swal.fire({
+                        title: "이미 있는 아이디 입니다.",
+                        icon: "error",
+                        confirmButtonText: "확인",
+                    });
                 }
             }
         })
     }
     document.querySelector('.signup_jg').addEventListener('click', signup);
-
     function redirectToLogin() {
         window.location.href = '/login';
     }
