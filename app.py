@@ -5,7 +5,8 @@ import datetime
 import hashlib
 
 app = Flask(__name__)
-client = MongoClient("mongodb://localhost:27017/junglegapDB")
+# client = MongoClient("mongodb://localhost:27017/junglegapDB")
+client = MongoClient('mongodb://jungler:1234@localhost', 27017)
 db = client.junglegapDB
 
 SECRET_KEY = 'J2n8l6G9P'
@@ -67,6 +68,19 @@ def api_login():
         return jsonify({'result': 'success', 'token': token})
     else:
         return jsonify({'result': 'fail'})
+    
+@app.route('/api/score', methods=['POST'])
+def api_score():
+    score_receive = request.form['score_give']
+    token_receive = request.cookies.get('mytoken')
+    
+    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+    db.user.update_one({'id': payload['id']}, {'$set': {'score': score_receive}})
+    print(payload['id'], score_receive)
+        
+    return jsonify({'result': 'success'})
+    
+
 @app.route('/ingame')
 def ingame():
     token_receive = request.cookies.get('mytoken')
