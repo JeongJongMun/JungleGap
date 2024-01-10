@@ -21,6 +21,5 @@ function MainLoop() {
     birdFalling();
     detectCollision();
     quizGenerate();
-
 }
 $(document).ready(setInterval(MainLoop, delta));
