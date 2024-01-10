@@ -97,11 +97,17 @@ function hpDown() {
             title: "Game Over..",
             text: "다시 도전해보세요!",
             icon: "question", 
-            confirmButtonText: "확인",
+            confirmButtonText: "재시작",
+            showDenyButton: true,
+            denyButtonText: "메인으로"
         }).then((result) => {
             if (result.isConfirmed) {
                 resumeGame();
-                // Redirect to main page
+                // 재시작
+            }
+            else if (result.isDenied) {
+                resumeGame();
+                // 메인으로
             }
         });
     }
