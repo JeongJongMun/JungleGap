@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../static/login/login.js"></script>
     <style>
         @font-face {
             font-family: 'WarhavenB';
@@ -23,46 +24,6 @@
             font-style: normal;
         }
     </style>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        jgF1: ['Pretendard-Regular, WarhavenB']
-                    },
-                    colors: {
-                        customJgColor1: "#254E3CFF",
-                        customJgColor2: "#FF9800FF",
-                        customJgColor3: "#5F8670CC"
-                    },
-                    fontSize: {
-                        customFontSize1: '100px',
-                    },
-                },
-            },
-        };
-
-        function login() {
-            $.ajax({
-                type: "POST",
-                url: "/api/login",
-                data: { id_give: $('#userid').val(), pw_give: $('#userpw').val() },
-                success: function (response) {
-                    if (response['result'] == 'success') {
-                        $.cookie('mytoken', response['token']);
-                        alert('로그인 완료')
-                        window.location.href = '/'
-                    } else {
-                        alert('로그인 실패')
-                    }
-                }
-            })
-        }
-
-        function redirectToSignup() {
-            window.location.href = '/signup';
-        }
-    </script>
 </head>
 
 <body class="bg-[url('/static/background.jpg')] bg-cover">
@@ -72,7 +33,7 @@
         <h1 class="font-jgF1 text-center text-customJgColor1 text-customFontSize1 ">정글차이</h1>
     </div>
     <div class="h-40"></div>
-    <form method=" post" action="/login">
+    <form method="post" action="/login">
         <div
             class="min-w-screen flex flex-col max-w-md min-h-200 mx-auto bg-customJgColor3 opacity-100 font-poppins px-4 bg-no-repeat bg-cover bg-center rounded-3xl">
             <div class="px-6 pt-4 flex flex-col w-full space-y-4">
@@ -112,10 +73,8 @@
                     </div>
                 </div>
                 <div class="pt-6 w-full flex space-x-2 justify-between">
-                    <a onclick="redirectToSignup()"
-                        class="hover:bg-sky-700 font-jgF1 cursor-pointer h-10 w-5/12 border-2 border-orange-700 rounded-lg text-white text-center items-center py-2">회원가입</a>
-                    <a onclick="login()"
-                        class="hover:bg-sky-700 font-jgF1 cursor-pointer h-10 w-5/12 bg-customJgColor2 rounded-lg text-white text-center items-center py-2">로그인</a>
+                    <a class="signup hover-bg-sky-700 font-jgF1 cursor-pointer h-10 w-5/12 border-2 border-orange-700 rounded-lg text-white text-center items-center py-2">회원가입</a>
+                    <a class="login hover-bg-customJgColor2 font-jgF1 cursor-pointer h-10 w-5/12 bg-customJgColor2 rounded-lg text-white text-center items-center py-2">로그인</a>
                 </div>
                 <div class="mb-1000">
                 </div>
