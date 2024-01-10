@@ -4,27 +4,74 @@
     <title>index</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-    <script id="targetScript" src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <title>정글 차이</title>
+    <style>
+        .bird {
+            position: absolute;
+            top: 50%;
+            left: 25%;
+            width: 200px;
+            height: 200px;
+            transition: transform 0.2s;
+        }
+
+        .bg-jungle {
+            background-image: url('../static/background.jpg');
+        }
+
+        body {
+            overflow: hidden;
+            /* Disable scrolling */
+        }
+    </style>
+</head>
+
+<body class="bg-jungle bg-cover bg-no-repeat">
+
+    <div class="relative">
+        <img id="bird" src="../static/bird3.gif" alt="Bird" class="bird absolute top-1/2 left-1/4">
+    </div>
+
     <script>
-      tailwind.config = {
-      theme: {
-          fontFamily: {
-              jgF1: ['./fonts/Pretendard']
-          },
-          extend: {
-              colors: {
-                  customJgColor1: "#254E3CFF",
-                  customJgColor2: "#FF9800FF",
-                  customJgColor3: "#5F8670CC"
-              },
-              fontSize: {
-                  customFontSize1: '88px',
-              },
-          },
-          },
-      };
+        let jump = false;
+
+        function handleJump() {
+            if (!jump) {
+                jump = true;
+                let pos = parseInt($("#bird").css("top"));
+                $("#bird").css("top", pos - 50 + "px");
+
+                setTimeout(() => {
+                    jump = false;
+                }, 200);
+            }
+        }
+
+        $(window).keydown(function (event) {
+            if (event.code === "Space") {
+                handleJump();
+                event.preventDefault();
+            }
+        });
+
+        function moveDown() {
+            const currentPosition = parseInt($("#bird").css("top"));
+            const windowHeight = $(window).height();
+            const birdHeight = $("#bird").height();
+
+            if (currentPosition + birdHeight < windowHeight) {
+                $("#bird").css("top", currentPosition + 3 + "px");
+            }
+        }
+
+        function startMovingDown() {
+            setInterval(moveDown, 50);
+        }
+
+        $(document).ready(startMovingDown);
     </script>
     <script>
       function logout(){
