@@ -70,6 +70,8 @@
       transition: all .5s;
     }
   </style>
+
+
   <script>
     tailwind.config = {
       theme: {
@@ -90,38 +92,10 @@
       },
     };
   </script>
-  <script>
-    function logout() {
-      $.removeCookie();
-      alert('로그아웃 성공')
-      window.location.href = '/login'
-    }
-  </script>
-  <script>
-    function redirectToIngame() {
-      var token = $.cookie('mytoken');
-      if (token) {
-        window.location.href = '/ingame?token=' + token;
-      } else {
-        alert('로그인이 필요합니다.');
-      }
 
-    }
-  </script>
-
-  <script>
-    function showRanking() {
-      document.querySelector(".modalBackground").className = "modalBackground show";
-    }
-
-    function closeRanking() {
-      document.querySelector(".modalBackground").className = "modalBackground";
-    }
-
-    window.onload = function () {
-      document.querySelector("#show").addEventListener("click", showRanking);
-      document.querySelector("#close").addEventListener("click", closeRanking);
-    }
+  <script src="../static/main/main.js"></script>
+  <script type=text/javascript>
+    var ranking_list = JSON.parse({{ ranker | tojson | safe}});
   </script>
 </head>
 
@@ -130,9 +104,9 @@
   <div class="mb-20">
   </div>
   <div>
-    <h1 class="font-jgF1 text-center text-customJgColor1 text-customFontSize1 ">정글차이</h1>
+    <img id="title" src="../static/title.png" alt="Title" class="absolute left-96">
   </div>
-  <div class="h-20"></div>
+  <div class="h-60"></div>
 
   <div
     class="min-w-screen flex-col max-w-md min-h-200 mx-auto bg-customJgColor3 opacity-100 px-4 bg-no-repeat bg-cover bg-center rounded-3xl">
@@ -153,7 +127,7 @@
       </div>
       <div class="flex justify-items-center  space-y-4">
         <!-- document.queerySelector의 addEventListener(click)으로 연결해서 onclick이 없음 -->
-        <a id="show"
+        <a id="ranking"
           class="hover:bg-sky-700 font-jgF1 cursor-pointer h-10 w-5/12 border-2 bg-customJgColor2 rounded-lg text-white text-center items-center py-2">
           랭킹보기</a>
         <div class="modalBackground">
@@ -161,11 +135,8 @@
             <div class="popup flex flex-col justify-center">
               <h1 class="font-jgF1 text-center text-customJgColor2 text-customFontSize1 ">랭 킹</h1>
               <div id="rankBoard" class="mx-10 h-min-20">
-                <ol type="1">
-                  <li>0.test</li>
-                  {% for item in rankers_received %}
-                  <li>{{item['id']}} : {{item['score']}}</li>
-                  {% endfor %}
+                <ol id="ranking-list" type="1">
+                  <!-- 랭킹 리스트 추가 부분 -->
                 </ol>
               </div>
               <a id="close"

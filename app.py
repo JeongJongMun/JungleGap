@@ -3,27 +3,24 @@ from pymongo import MongoClient
 import jwt
 import datetime
 import hashlib
+import json
 
 app = Flask(__name__)
-# client = MongoClient("mongodb://localhost:27017/junglegapDB")
-client = MongoClient('mongodb://jungler:1234@localhost', 27017)
+client = MongoClient("mongodb://localhost:27017/junglegapDB")
+# client = MongoClient('mongodb://jungler:1234@localhost', 27017)
 db = client.junglegapDB
 
 SECRET_KEY = 'J2n8l6G9P'
 
-def showRanker():
-    rankers_give = list(db.user.find({}, {'_id': 0 ,'pw':0}).sort('score', -1).limit(10))
-    print(rankers_give)
-    return render_template('index.html' , rankers_received=rankers_give)
 
 @app.route('/', methods=['GET'])
 def start():
-    showRanker()
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"id": payload['id']})
-        return render_template('index.html', userid=user_info['id'], score=user_info['score'])
+        ranker_list = list(db.user.find({}, {'_id': 0 ,'pw':0}).sort('score', -1).limit(10))
+        return render_template('index.html', userid=user_info['id'], score=user_info['score'], ranker=json.dumps(ranker_list))
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login"))
     except jwt.exceptions.DecodeError:
