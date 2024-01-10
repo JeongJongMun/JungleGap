@@ -1,47 +1,166 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>index</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-    <script id="targetScript" src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
+
+<head>
+  <title>index</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @font-face {
+      font-family: 'WarhavenB';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/WarhavenB.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Pretendard-Regular';
+      src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    .modalBackground {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+
+      /* 숨기기 */
+      z-index: -1;
+      opacity: 0;
+    }
+
+    .modalWindow {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .popup {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #ffffff;
+      box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
+
+      /* 임시 지정 */
+      width: 500px;
+      height: 500px;
+
+      /* 초기에 약간 아래에 배치 */
+      transform: translate(-50%, -40%);
+    }
+
+    .show {
+      opacity: 1;
+      z-index: 1000;
+      transition: all .5s;
+    }
+
+    .show .popup {
+      transform: translate(-50%, -50%);
+      transition: all .5s;
+    }
+  </style>
+  <script>
+    tailwind.config = {
       theme: {
+        extend: {
           fontFamily: {
-              jgF1: ['./fonts/Pretendard']
+            jgF1: ['Pretendard-Regular, WarhavenB']
           },
-          extend: {
-              colors: {
-                  customJgColor1: "#254E3CFF",
-                  customJgColor2: "#FF9800FF",
-                  customJgColor3: "#5F8670CC"
-              },
-              fontSize: {
-                  customFontSize1: '88px',
-              },
+          colors: {
+            customJgColor1: "#254E3CFF",
+            customJgColor2: "#FF9800FF",
+            customJgColor3: "#5F8670CC"
           },
+
+          fontSize: {
+            customFontSize1: '100px',
           },
-      };
-    </script>
-    <script>
-      function logout(){
-        $.removeCookie();
-        alert('로그아웃 성공')
-        window.location.href='/login'
-      }
-      function redirectToIngame() {
-        window.location.href = '/ingame';
-      }
-    </script>
-  </head>
-  <body>
-    <h1>정글차이</h1>
-    아이디: {{userid}}
-    점수: {{score}}
-    <button onclick="logout()">로그아웃</button>
-    <button onclick="redirectToIngame()">게임시작</button>
-  </body>
+
+        },
+      },
+    };
+  </script>
+  <script>
+    function logout() {
+      $.removeCookie();
+      alert('로그아웃 성공')
+      window.location.href = '/login'
+    }
+    function redirectToIngame() {
+      window.location.href = '/ingame';
+    }
+
+    function showRanking() {
+      document.querySelector(".background").className = "background show";
+    }
+
+    function closeRanking() {
+      document.querySelector(".background").className = "background";
+    }
+
+    document.querySelector("#show").addEventListener("click", showRanking);
+    document.querySelector("#close").addEventListener("click", closeRanking);
+  </script>
+</head>
+
+<body class="bg-[url('/static/background.jpg')] bg-cover">
+  <div class="mb-20">
+  </div>
+  <div>
+    <h1 class="font-jgF1 text-center text-customJgColor1 text-customFontSize1 ">정글차이</h1>
+  </div>
+  <div class="h-20"></div>
+
+  <div
+    class="min-w-screen flex flex-col max-w-md min-h-200 mx-auto bg-customJgColor3 opacity-100 px-4 bg-no-repeat bg-cover bg-center rounded-3xl">
+    <div class="px-6 pt-4 flex flex-col w-full space-y-4">
+      <div class="flex flex-col w-full space-y-10">
+        <label class="font-jgF1 text-md text-white" for="userid"> 아이디: {{userid}}</label>
+      </div>
+      <div class="flex flex-col w-full space-y-1">
+        <label class="font-jgF1 text-md text-white" for="userpw"> 점수: {{score}}</label>
+
+      </div>
+    </div>
+
+    <div class="pt-6 w-full flex space-x-2 justify-between">
+      <a onclick="redirectToLogin()"
+        class="hover:bg-sky-700 font-jgF1 cursor-pointer h-10 w-5/12 border-2 border-orange-700 rounded-lg text-white text-center items-center py-2">
+        게임시작</a>
+      <a onclick="signup()"
+        class="hover:bg-sky-700 font-jgF1 cursor-pointer h-10 w-5/12 bg-customJgColor2 rounded-lg text-white text-center items-center py-2">
+        랭킹보기</a>
+    </div>
+    <div class="mb-1000">
+    </div>
+  </div>
+  </div>
+
+
+
+  <button onclick="logout()">로그아웃</button>
+
+  <button id="show">랭킹열기</button>
+  <div class="modalBackground">
+    <div class="modalWindow">
+      <div class="popup">
+        <button id="close">랭킹닫기</button>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
 </html>

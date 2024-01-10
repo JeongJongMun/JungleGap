@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Login</title>
     <meta charset="utf-8">
@@ -7,6 +8,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <style>
+        @font-face {
+            font-family: 'WarhavenB';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/WarhavenB.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Pretendard-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
     <script>
         tailwind.config = {
             theme: {
@@ -25,27 +41,30 @@
                 },
             },
         };
+
         function login() {
             $.ajax({
-                    type: "POST",
-                    url: "/api/login",
-                    data: {id_give: $('#userid').val(), pw_give: $('#userpw').val()},
-                    success: function (response) {
-                        if (response['result'] == 'success') {
-                            $.cookie('mytoken', response['token']);
-                            alert('로그인 완료')
-                            window.location.href = '/'
-                        } else {
-                            alert('로그인 실패')
-                        }
+                type: "POST",
+                url: "/api/login",
+                data: { id_give: $('#userid').val(), pw_give: $('#userpw').val() },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        $.cookie('mytoken', response['token']);
+                        alert('로그인 완료')
+                        window.location.href = '/'
+                    } else {
+                        alert('로그인 실패')
                     }
-                })
+                }
+            })
         }
+
         function redirectToSignup() {
             window.location.href = '/signup';
         }
     </script>
 </head>
+
 <body class="bg-[url('/static/background.jpg')] bg-cover">
     <div class="mb-20">
     </div>
@@ -68,7 +87,7 @@
                             </svg>
                         </div>
                         <div class="w-10/12 rounded-r-xl">
-                            <input type="text" id="userid" 
+                            <input type="text" id="userid"
                                 class="font-jgF1 w-full h-full rounded-r flex items-center px-1 focus:outline-none"
                                 placeholder="아이디를 입력하세요.">
                         </div>
@@ -94,7 +113,7 @@
                 </div>
                 <div class="pt-6 w-full flex space-x-2 justify-between">
                     <a onclick="redirectToSignup()"
-                        class="hover:bg-sky-700 cursor-pointer  font-jgF1 h-10 w-5/12 border-2 border-orange-700 rounded-lg text-white text-center items-center py-2">회원가입</a>
+                        class="hover:bg-sky-700 font-jgF1 cursor-pointer h-10 w-5/12 border-2 border-orange-700 rounded-lg text-white text-center items-center py-2">회원가입</a>
                     <a onclick="login()"
                         class="hover:bg-sky-700 font-jgF1 cursor-pointer h-10 w-5/12 bg-customJgColor2 rounded-lg text-white text-center items-center py-2">로그인</a>
                 </div>
@@ -104,4 +123,5 @@
         </div>
     </form>
 </body>
+
 </html>
