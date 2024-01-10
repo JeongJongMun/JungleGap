@@ -5,7 +5,8 @@ import datetime
 import hashlib
 
 app = Flask(__name__)
-client = MongoClient("mongodb://localhost:27017/junglegapDB")
+# client = MongoClient("mongodb://localhost:27017/junglegapDB")
+client = MongoClient('mongodb://jungler:1234@localhost', 27017)
 db = client.junglegapDB
 
 SECRET_KEY = 'J2n8l6G9P'
