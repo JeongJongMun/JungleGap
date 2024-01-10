@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <title>signup</title>
     <meta charset="utf-8">
@@ -25,33 +26,35 @@
                 },
             },
         };
-        function signup(){
-                $.ajax({
-                    type: "POST",
-                    url: "/api/signup",
-                    data: {
-                        id_give: $('#userid').val(),
-                        pw_give: $('#userpw').val()
-                    },
-                    success: function (response) {
-                        if (response['result'] == 'success') {
-                            alert('회원가입 완료')
-                            window.location.href = '/login'
-                        } else if (response['result'] == 'notid') {
-                            alert('아이디를 입력하세요.')
-                        } else if (response['result'] == 'notpw') {
-                            alert('비밀번호를 입력하세요.')
-                        } else {
-                            alert('이미 있는 아이디입니다.')
-                        }
+
+        function signup() {
+            $.ajax({
+                type: "POST",
+                url: "/api/signup",
+                data: {
+                    id_give: $('#userid').val(),
+                    pw_give: $('#userpw').val()
+                },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert('회원가입 완료')
+                        window.location.href = '/login'
+                    } else if (response['result'] == 'notid') {
+                        alert('아이디를 입력하세요.')
+                    } else if (response['result'] == 'notpw') {
+                        alert('비밀번호를 입력하세요.')
+                    } else {
+                        alert('이미 있는 아이디입니다.')
                     }
-                })
-            }
+                }
+            })
+        }
         function redirectToLogin() {
             window.location.href = '/login';
         }
     </script>
 </head>
+
 <body class="bg-[url('/static/background.jpg')] bg-cover">
     <div class="mb-20">
     </div>
@@ -111,4 +114,5 @@
         </div>
     </form>
 </body>
+
 </html>
