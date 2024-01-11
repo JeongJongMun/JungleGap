@@ -73,14 +73,22 @@ def api_login():
     
 @app.route('/api/score', methods=['POST'])
 def api_score():
-    score_receive = request.form['score_give']
+    score_receive = int(request.form['score_give'])
     token_receive = request.cookies.get('mytoken')
     
     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-    db_score = db.user.find_one({'id': payload['id']}, {'_id': False, 'score': True})['score']
-    db.user.update_one({'id': payload['id']}, {'$set': {'score': max(score_receive, db_score)}})
+    db_score = int(db.user.find_one({'id': payload['id']}, {'_id': False, 'score': True})['score'])
+    
+    max_score = 0
+    if (score_receive > db_score):
+        max_score = score_receive
+    else:
+        max_score = db_score
+
+    db.user.update_one({'id': payload['id']}, {'$set': {'score': max_score}})
+    
         
-    return jsonify({'result': 'success'})
+    return jsonify({'result': 'success', 'db_score': db_score, 'score': score_receive})
     
 
 @app.route('/ingame')
