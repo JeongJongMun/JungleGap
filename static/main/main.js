@@ -7,7 +7,7 @@ function showRanking(ranking_list) {
         var rank = i + 1;
         var id = ranking_list[i]['id'];
         var score = ranking_list[i]['score'];
-        $("#ranking-list").append("<li>" + rank + "위 " + id + " " + score + "점" + "</li>");
+        $("#ranking-list").append("<li class='mx-20 px-10 text-4xl text-nowrap'>" + rank + "위 " + id + " " + score + "점" + "</li>");
     }
 }
 
