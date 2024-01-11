@@ -2,7 +2,7 @@ import { pauseGame, resumeGame } from "./ingame.js";
 
 let canQuiz = true;
 let monkeyElement;
-let monkeyMovingSpeed = 3000;
+let monkeyMovingSpeed = 5000;
 
 let currentQuizType = "";
 let currentQuizIdx = 0;
@@ -18,8 +18,9 @@ let questionList = [
     "크래프톤 정글의 기본 출석시간은 월~금 10:00 ~ 23:00이다.",
     "외출 가능 횟수는 일 ?회다.",
     "크래프톤 정글의 비주얼 담당은 백승현 코치님이다.",
-    "경기대 내부의 학식당의 개수는?"]
-let answerList = ["2", "O", "O", "X", "1", "X", "4"]
+    "경기대 내부의 학식당의 개수는?",
+    "기숙사 공용 냉장고는 4층에 있다."]
+let answerList = ["2", "O", "O", "X", "1", "X", "4", "X"]
 let answerShow = [
     "기숙사 세탁실은 2층에 있다.",
     "경기드림타워 구내식당의 중식 시간은 11:30~13:00이다.",
@@ -27,8 +28,9 @@ let answerShow = [
     "크래프톤 정글의 기본 출석시간은 월~토 10:00 ~ 23:00이다.",
     "외출 가능 횟수는 일 1회다.",
     "크래프톤 정글의 비주얼 담당은 김현수 코치님이다.",
-    "경기대 내부의 학식당의 개수는 4개다."]
-let questionType = ["number", "OX", "OX", "OX", "number", "OX", "number"]
+    "경기대 내부의 학식당의 개수는 4개다.",
+    "기숙사 공용 냉장고는 2층에 있다."]
+let questionType = ["number", "OX", "OX", "OX", "number", "OX", "number", "OX"]
 
 let monkeys_number = `
 <div class="absolute grid grid-cols-1 gap-4 right-0 top-1/3 content-start" style="left: 80%">
@@ -122,12 +124,9 @@ function scoreSave() {
     });
 }
 
-
-
 // 체력 감소 함수
 function hpDown() {
     health--;
-    console.log(health);
     let healthContainer = $("#hp-box");
     healthContainer.empty();
 
