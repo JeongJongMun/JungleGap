@@ -27,7 +27,7 @@ window.onload = function () {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    
+
     function redirectToIngame() {
         var token = $.cookie('mytoken');
         if (token) {
@@ -36,10 +36,11 @@ document.addEventListener("DOMContentLoaded", function () {
             alert('로그인이 필요합니다.');
         }
     }
-    
-    $('.ingame').click(redirectToIngame);    
+
+    $('.ingame').click(redirectToIngame);
     function logout() {
-        $.removeCookie();
+        $.removeCookie('mytoken');
+
         Swal.fire({
             title: "로그아웃 성공",
             icon: "success",
@@ -50,5 +51,5 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-    $('.logout').click(logout);    
+    $('.logout').click(logout);
 });
