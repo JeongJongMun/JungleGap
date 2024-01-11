@@ -33,29 +33,29 @@ let answerShow = [
 let questionType = ["number", "OX", "OX", "OX", "number", "OX", "number", "OX"]
 
 let monkeys_number = `
-<div class="absolute grid grid-cols-1 gap-4 right-0 top-1/3 content-start" style="left: 80%">
-    <div>
-        <img id="monkey1" src="../static/monkey1.png" alt="Monkey" class="size-24">
+<div class="absolute grid grid-cols-1 gap-4 right-0 bottom-0 h-4/5 content-start" style="left: 80%">
+    <div class="overflow-auto">
+        <img id="monkey1" src="../static/monkey1.png" alt="Monkey" class="h-3/4">
     </div>
-    <div>
-        <img id="monkey2" src="../static/monkey2.png" alt="Monkey" class="size-24">
+    <div class="overflow-auto">
+        <img id="monkey2" src="../static/monkey2.png" alt="Monkey" class="h-3/4">
     </div>
-    <div>
-        <img id="monkey3" src="../static/monkey3.png" alt="Monkey" class="size-24">
+    <div class="overflow-auto">
+        <img id="monkey3" src="../static/monkey3.png" alt="Monkey" class="h-3/4">
     </div>
-    <div>
-        <img id="monkey4" src="../static/monkey4.png" alt="Monkey" class="size-24">
+    <div class="overflow-auto">
+        <img id="monkey4" src="../static/monkey4.png" alt="Monkey" class="h-3/4">
     </div>
 </div>
 `;
 
 let monkeys_ox = `
-<div class="absolute flex flex-col gap-20 top-1/4" style="left: 80%">
-    <div>
-        <img id="monkeyO" src="../static/monkeyO.png" alt="Monkey" class="size-48">
+<div class="absolute grid grid-cols-1 gap-20 right-0 h-4/5 content-end" style="left: 80%; bottom:10%;">
+    <div class="overflow-auto">
+        <img id="monkeyO" src="../static/monkeyO.png" alt="Monkey" class="">
     </div>
-    <div>
-        <img id="monkeyX" src="../static/monkeyX.png" alt="Monkey" class="size-48">
+    <div class="overflow-auto">
+        <img id="monkeyX" src="../static/monkeyX.png" alt="Monkey" class="">
     </div>
 </div>
 `;
