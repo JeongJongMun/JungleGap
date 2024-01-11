@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
             success: function (response) {
                 if (response['result'] === 'success') {
                     Swal.fire({
-                        title: "로그인 성공",
+                        title: "회원가입 성공",
                         icon: "success",
                         confirmButtonText: "확인",
                     }).then((result) => {
