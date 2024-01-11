@@ -1,32 +1,32 @@
-import {quiz} from "./quiz.js";
+import { quiz } from "./quiz.js";
 
 let isJump = false;
 let birdFlyingSpeed = 50;
-let birdFallingSpeed = 5;
+let birdFlyingInterval = 500;
+let birdFallingSpeed = 3;
 
 // 새 올라가기 함수
 function birdFlying() {
-    if (!isJump) {
-        let bird = $("#bird");
-        let birdPos = bird.offset();
+    isJump = true;
+    setTimeout(() => {
+        isJump = false;
+    }, birdFlyingInterval);
 
-        let box = $("#question-box");
-        let boxPos = box.offset();
-        let boxHeight = box.outerHeight(true);
+    let bird = $("#bird");
+    let birdPos = bird.offset();
 
-        // 새가 question-box에 닿으면 올라가는 동작을 중단한다.
-        if (birdPos.top - birdFlyingSpeed <= boxPos.top + boxHeight) {
-            return;
-        }
+    let box = $("#question-box");
+    let boxPos = box.offset();
+    let boxHeight = box.outerHeight(true);
 
-        isJump = true;
-        bird.css("top", birdPos.top - birdFlyingSpeed + "px");
-
-        setTimeout(() => {
-            isJump = false;
-        }, 100);
+    // 새가 question-box에 닿으면 올라가는 동작을 중단한다.
+    if (birdPos.top - birdFlyingSpeed <= boxPos.top + boxHeight) {
+        return;
     }
+
+    bird.css("top", birdPos.top - birdFlyingSpeed + "px");
 }
+
 // birdFlying 이벤트 리스너
 $(window).keydown(function (event) {
     if (event.code === "Space") {
@@ -37,12 +37,15 @@ $(window).keydown(function (event) {
 
 // 새 떨어지기 함수
 export function birdFalling() {
-    const currentPosition = parseInt($("#bird").css("top"));
+    if (isJump) { return; }
+    let bird = $("#bird");
+
+    const currentPosition = parseInt(bird.css("top"));
     const windowHeight = $(window).height();
-    const birdHeight = $("#bird").height();
+    const birdHeight = bird.height();
 
     if (currentPosition + birdHeight < windowHeight) {
-        $("#bird").css("top", currentPosition + birdFallingSpeed + "px");
+        bird.css("top", currentPosition + birdFallingSpeed + "px");
     }
 }
 
