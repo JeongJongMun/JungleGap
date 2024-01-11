@@ -1,8 +1,11 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
+    <title>정글 차이</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- JQuery -->
@@ -11,12 +14,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- import 모듈 사용할 파일 지정 -->
     <script type="module" src="../static/ingame/ingame.js"></script>
-
-    <title>정글 차이</title>
-
 </head>
 
-<body class="bg-[url('../static/background.jpg')] bg-fixed bg-cover bg-no-repeat">
+<body class="bg-[url('../static/background.jpg')] bg-fixed bg-cover bg-no-repeat overflow-hidden">
 
     <!-- 상단바 -->
     <div class="flex mt-3">
@@ -26,11 +26,15 @@
             <img id="hp" src="../static/heart.png" alt="HP" class="size-20">
             <img id="hp" src="../static/heart.png" alt="HP" class="size-20">
         </div>
-        <span style="left: 42%; margin-top: 7px; color: #F6D776" class="text-5xl absolute font-black drop-shadow-[0_6px_0px_rgba(0,0,0,0.8)]">점수: </span>
+        <span style="left: 42%; margin-top: 7px; color: #F6D776"
+            class="text-5xl absolute font-black drop-shadow-[0_6px_0px_rgba(0,0,0,0.8)]">점수: </span>
         <!-- 스코어 -->
-        <div style="color: #F6D776" id="score" class="flex left-1/2 absolute text-6xl text-center size-20 font-black drop-shadow-[0_6px_0px_rgba(0,0,0,0.8)]">0</div>
+        <div style="color: #F6D776" id="score"
+            class="flex left-1/2 absolute text-6xl text-center size-20 font-black drop-shadow-[0_6px_0px_rgba(0,0,0,0.8)]">
+            0</div>
         <!-- 나가기 버튼 -->
-        <img id="exit-btn" src="../static/exit.png" alt="Exit" class="absolute right-4 size-20 hover:brightness-75 active:brightness-50 cursor-pointer">
+        <img id="exit-btn" src="../static/exit.png" alt="Exit"
+            class="absolute right-4 size-20 hover:brightness-75 active:brightness-50 cursor-pointer">
     </div>
 
     <!-- 퀴즈 -->

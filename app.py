@@ -77,8 +77,8 @@ def api_score():
     token_receive = request.cookies.get('mytoken')
     
     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-    db.user.update_one({'id': payload['id']}, {'$set': {'score': score_receive}})
-    print(payload['id'], score_receive)
+    db_score = db.user.find_one({'id': payload['id']}, {'_id': False, 'score': True})['score']
+    db.user.update_one({'id': payload['id']}, {'$set': {'score': max(score_receive, db_score)}})
         
     return jsonify({'result': 'success'})
     
