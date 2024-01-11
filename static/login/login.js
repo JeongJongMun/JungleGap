@@ -26,12 +26,12 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-    
+
     $('.login').click(login);
-    
+
     function redirectToSignup() {
         window.location.href = '/signup';
     }
 
-    $('.signup').click(redirectToSignup);    
+    $('.signup').click(redirectToSignup);
 });
