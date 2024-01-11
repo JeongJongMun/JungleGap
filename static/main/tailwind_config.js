@@ -13,7 +13,7 @@ tailwind.config = {
             fontSize: {
                 customFontSize1: '100px',
                 customFontSize2: '50px',
-                customListFontSize1: '44px',
+                customListFontSize1: '30px',
             },
         },
     },
