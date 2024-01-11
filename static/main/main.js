@@ -22,17 +22,33 @@ window.onload = function () {
     });
     $("#close").click(closeRanking);
 }
-function logout() {
-    $.removeCookie();
-    alert('로그아웃 성공')
-    window.location.href = '/login'
-}
 
-function redirectToIngame() {
-    var token = $.cookie('mytoken');
-    if (token) {
-        window.location.href = '/ingame?token=' + token;
-    } else {
-        alert('로그인이 필요합니다.');
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    
+    function redirectToIngame() {
+        var token = $.cookie('mytoken');
+        if (token) {
+            window.location.href = '/ingame?token=' + token;
+        } else {
+            alert('로그인이 필요합니다.');
+        }
     }
-}
+    
+    $('.ingame').click(redirectToIngame);    
+    function logout() {
+        $.removeCookie();
+        Swal.fire({
+            title: "로그아웃 성공",
+            icon: "success",
+            confirmButtonText: "확인",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/login';
+            }
+        });
+    }
+    $('.logout').click(logout);    
+});

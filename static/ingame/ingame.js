@@ -1,7 +1,7 @@
 import { birdFalling, detectCollision } from "./bird.js";
 import { quizGenerate } from "./quiz.js";
 
-let delta = 50;
+let delta = 8;
 let isPlaying = true;
 
 function exit() {

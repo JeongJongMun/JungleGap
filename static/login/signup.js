@@ -40,9 +40,9 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         })
     }
-    document.querySelector('.signup_jg').addEventListener('click', signup);
+    $('.signup_jg').click(signup);
     function redirectToLogin() {
         window.location.href = '/login';
     }
-    document.querySelector('.back_jg').addEventListener('click', redirectToLogin);
+    $('.back_jg').click(redirectToLogin);
 });
