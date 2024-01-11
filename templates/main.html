@@ -36,7 +36,8 @@
     </div>
     <div class="h-10"></div>
     <div class="flex flex-col items-center justify-center">
-      <a class="ingame hover:brightness-75 active:brightness-50 cursor-pointer font-jgF1 h-10 w-5/12 border-2 bg-customJgColor2 rounded-lg text-white text-center py-2">
+      <a
+        class="ingame hover:brightness-75 active:brightness-50 cursor-pointer font-jgF1 h-10 w-5/12 border-2 bg-customJgColor2 rounded-lg text-white text-center py-2">
         게임시작
       </a>
       <div class="h-4"></div>
@@ -45,7 +46,8 @@
         랭킹보기
       </a>
       <div class="h-4"></div>
-      <a class="logout hover:brightness-75 active:brightness-50 cursor-pointer font-jgF1 h-10 w-5/12 border-2 bg-customJgColor2 rounded-lg text-white text-center py-2">
+      <a
+        class="logout hover:brightness-75 active:brightness-50 cursor-pointer font-jgF1 h-10 w-5/12 border-2 bg-customJgColor2 rounded-lg text-white text-center py-2">
         로그아웃
       </a>
 
@@ -53,11 +55,11 @@
       <div id="modalBackground" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 opacity-0 -z-10">
         <div id="modalWindow" class="relative w-full h-full">
           <div
-            class="bg-customBgColor1 bg-opacity-100 absolute border-8 border-customJgColor2 rounded-3xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-60 transition-transform duration-500 transform translate-x-(-50%) translate-y-(-50%) shadow-md w-800 h-500 flex flex-col justify-center">
+            class="bg-customBgColor1 bg-opacity-100 absolute border-8 border-customJgColor2 rounded-3xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-500 transform translate-x-(-50%) translate-y-(-50%) shadow-md w-800 h-500 flex flex-col justify-center">
             <h1 class="font-jgF1 px-60 text-center text-customJgColor2 text-customFontSize2 pb-10 my-8 mx-10">RANKING
             </h1>
             <div id="rankBoard" class="min-h-20 min-w-full">
-              <ul id="ranking-list" class="px-4">
+              <ul id="ranking-list" class="px-4 overflow-y-scroll h-80">
                 <!-- 랭킹 리스트 추가 부분 -->
               </ul>
             </div>
